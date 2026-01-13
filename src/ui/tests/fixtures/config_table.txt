@@ -1,0 +1,11 @@
+--------------------------------------------------------------------------------------
+CONFIG
+--------------------------------------------------------------------------------------
+ID | KEY                   | DESCRIPTION                          | VALUE             
+--------------------------------------------------------------------------------------
+0  | RANGE                 | Daily hours                          | 8:00AM-6:00PM     
+1  | TASK_OVERFLOW_POLICY  | overflow                             | allow             
+2  | TASK_SCHEDULING_ORDER | order                                | longest-task-first
+3  | SCHEDULE_START_DATE   | start date                           | -                 
+4  | FILE_LOGGING_ENABLED  | Enable writing log messages to file. | True              
+--------------------------------------------------------------------------------------

@@ -1,0 +1,22 @@
+{
+  "range": {
+    "value": "8:00AM-6:00PM",
+    "description": "Daily hours start & end"
+  },
+  "task_overflow_policy": {
+    "value": "allow",
+    "description": "Allow tasks to overflow into next day"
+  },
+  "task_scheduling_order": {
+    "value": "longest-task-first",
+    "description": "Scheduling strategy for tasks"
+  },
+  "schedule_start_date": {
+    "value": null,
+    "description": "Optional scheduling start date (YYYY-MM-DD). Tasks/events cannot be before this date."
+  },
+  "file_logging_enabled": {
+    "value": "True",
+    "description": "Enable writing log messages to the session file."
+  }
+}
