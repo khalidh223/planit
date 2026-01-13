@@ -1,7 +1,8 @@
-use std::io::Write;
 use std::process::{Command, Stdio};
 
-use crate::common::{binary_path, make_temp_dir, run_with_input, write_valid_config};
+use crate::common::{
+    binary_path, make_temp_dir, run_with_input, run_without_input, write_valid_config,
+};
 
 #[test]
 fn main_exits_successfully_with_valid_config() {
@@ -14,16 +15,7 @@ fn main_exits_successfully_with_valid_config() {
 #[test]
 fn main_fails_when_config_missing() {
     let dir = make_temp_dir("core");
-    let mut child = Command::new(binary_path())
-        .current_dir(&dir)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::null())
-        .stderr(Stdio::piped())
-        .spawn()
-        .expect("failed to spawn binary");
-
-    child.stdin.as_mut().unwrap().write_all(b"exit\n").unwrap();
-    let output = child.wait_with_output().unwrap();
+    let output = run_without_input(&dir);
     assert!(
         !output.status.success(),
         "expected failure when config is missing"
@@ -44,16 +36,7 @@ fn main_fails_when_config_is_malformed() {
     }"#;
     std::fs::write(dir.join("config.json"), cfg).unwrap();
 
-    let mut child = Command::new(binary_path())
-        .current_dir(&dir)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::null())
-        .stderr(Stdio::piped())
-        .spawn()
-        .expect("failed to spawn binary");
-
-    child.stdin.as_mut().unwrap().write_all(b"exit\n").unwrap();
-    let output = child.wait_with_output().unwrap();
+    let output = run_without_input(&dir);
     assert!(
         !output.status.success(),
         "expected failure on malformed config"
@@ -75,16 +58,7 @@ fn main_fails_when_required_key_missing() {
     }"#;
     std::fs::write(dir.join("config.json"), cfg).unwrap();
 
-    let mut child = Command::new(binary_path())
-        .current_dir(&dir)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::null())
-        .stderr(Stdio::piped())
-        .spawn()
-        .expect("failed to spawn binary");
-
-    child.stdin.as_mut().unwrap().write_all(b"exit\n").unwrap();
-    let output = child.wait_with_output().unwrap();
+    let output = run_without_input(&dir);
     assert!(
         !output.status.success(),
         "expected failure when required config key is missing"
@@ -110,7 +84,10 @@ fn main_fails_on_unknown_cli_arg() {
         .output()
         .expect("failed to run binary");
 
-    assert!(!output.status.success(), "expected failure on unknown cli arg");
+    assert!(
+        !output.status.success(),
+        "expected failure on unknown cli arg"
+    );
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(
         stderr.contains("Unknown argument"),

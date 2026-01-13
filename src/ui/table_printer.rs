@@ -114,11 +114,7 @@ impl TablePrinter {
         Ok(())
     }
 
-    fn compute_col_widths<T: AsRef<str>>(
-        &self,
-        headers: &[&str],
-        rows: &[Vec<T>],
-    ) -> Vec<usize> {
+    fn compute_col_widths<T: AsRef<str>>(&self, headers: &[&str], rows: &[Vec<T>]) -> Vec<usize> {
         let col_count = headers.len();
         let mut col_widths = vec![0usize; col_count];
         for (i, h) in headers.iter().enumerate() {
@@ -225,6 +221,9 @@ impl TablePrinter {
     }
 
     fn join_row_unpadded<T: AsRef<str>>(&self, row: &[T]) -> String {
-        row.iter().map(|c| c.as_ref()).collect::<Vec<_>>().join(" | ")
+        row.iter()
+            .map(|c| c.as_ref())
+            .collect::<Vec<_>>()
+            .join(" | ")
     }
 }

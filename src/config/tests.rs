@@ -128,8 +128,7 @@ fn set_key_updates_file_logging_enabled() {
     sample_config_file(&path);
     let mut cfg = Config::load_from(&path).unwrap();
 
-    cfg.set_key(ConfigKey::FileLoggingEnabled, "False")
-        .unwrap();
+    cfg.set_key(ConfigKey::FileLoggingEnabled, "False").unwrap();
     assert!(!cfg.file_logging_enabled());
 }
 

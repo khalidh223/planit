@@ -81,9 +81,7 @@ fn global_resolver_matches_schedule_and_config() {
         .expect("config should resolve");
     assert!(config_cmd.usage().to_lowercase().contains("config"));
 
-    let man_cmd = resolver
-        .resolve("man", &[])
-        .expect("man should resolve");
+    let man_cmd = resolver.resolve("man", &[]).expect("man should resolve");
     assert!(man_cmd.usage().to_lowercase().contains("man"));
 }
 

@@ -2,8 +2,8 @@ use crate::config::{ConfigKey, ConfigRows};
 use crate::core::context::AppContext;
 use crate::core::types::{TaskOverflowPolicy, TaskSchedulingOrder};
 use crate::errors::Result;
-use crate::prompter::models::{ConfigState, Flow, FlowCtrl};
 use crate::logging::LogTarget;
+use crate::prompter::models::{ConfigState, Flow, FlowCtrl};
 use crate::ui::ansi::STYLE_RESET;
 use crate::ui::chrome::UiChrome;
 use crate::ui::display_manager::DisplayManager;
@@ -106,10 +106,8 @@ impl<'a> ConfigEditFlow<'a> {
 
     fn render_possible_options(&self) {
         if let Some(opts) = self.possible_options() {
-            self.chrome.println_centered_in_box(
-                &format!("Possible options: {opts}"),
-                self.frame_width,
-            );
+            self.chrome
+                .println_centered_in_box(&format!("Possible options: {opts}"), self.frame_width);
         }
     }
 
@@ -260,10 +258,8 @@ impl<'a> ConfigEditFlow<'a> {
 
     fn log_config_change(&mut self, key: String, old: String, new: String) {
         let file_enabled = self.ctx.config.file_logging_enabled();
-        let is_file_logging_key = matches!(
-            ConfigKey::from_str(&key),
-            Ok(ConfigKey::FileLoggingEnabled)
-        );
+        let is_file_logging_key =
+            matches!(ConfigKey::from_str(&key), Ok(ConfigKey::FileLoggingEnabled));
         if is_file_logging_key {
             if file_enabled {
                 self.ctx.logger.set_file_logging_enabled(true);

@@ -2,8 +2,8 @@ use crate::config::Config;
 use crate::core::models::{Card, Event, Task};
 use crate::core::repository::Repository;
 
-use crate::logging::Logger;
 use crate::errors::Result;
+use crate::logging::Logger;
 use std::path::PathBuf;
 
 #[derive(Debug)]

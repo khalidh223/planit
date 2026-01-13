@@ -167,9 +167,8 @@ mod tests {
             event_time,
             daily_range,
         };
-        let expected =
-            "Event 'standup' time 8:00AM-9:00AM is outside daily range 10:00AM-11:00AM."
-                .to_string();
+        let expected = "Event 'standup' time 8:00AM-9:00AM is outside daily range 10:00AM-11:00AM."
+            .to_string();
         assert_eq!(err.to_string(), expected);
     }
 

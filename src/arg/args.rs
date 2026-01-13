@@ -57,7 +57,10 @@ impl Arg {
             && !rendered.starts_with('"')
             && !rendered.starts_with('\'')
         {
-            rendered.split_whitespace().map(|tok| tok.to_string()).collect()
+            rendered
+                .split_whitespace()
+                .map(|tok| tok.to_string())
+                .collect()
         } else {
             vec![rendered]
         }
@@ -91,7 +94,6 @@ impl TokenStream {
         Ok(s)
     }
 }
-
 
 pub trait SingleTokenArg {
     fn accepts(tok: &str) -> bool;

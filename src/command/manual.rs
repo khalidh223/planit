@@ -14,7 +14,9 @@ use crate::core::types::{EntityActionType, EntityType, GlobalCommand, TypeHelpCo
 use crate::errors::{Error, Result};
 use crate::extensions::enums::valid_csv;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumString, DisplayDerive, AsRefStr, EnumIterDerive)]
+#[derive(
+    Debug, Clone, Copy, PartialEq, Eq, EnumString, DisplayDerive, AsRefStr, EnumIterDerive,
+)]
 #[strum(ascii_case_insensitive, serialize_all = "lowercase")]
 pub enum ManualTopic {
     General,

@@ -44,9 +44,11 @@ fn man_command_prints_general_manual() {
     assert!(output.status.success());
     let stdout_lines = normalized_lines(&output.stdout);
     assert!(stdout_lines.iter().any(|line| line == "NAME"));
-    assert!(stdout_lines
-        .iter()
-        .any(|line| line == "planit - Personal scheduling CLI."));
+    assert!(
+        stdout_lines
+            .iter()
+            .any(|line| line == "planit - Personal scheduling CLI.")
+    );
 }
 
 #[test]
@@ -57,9 +59,11 @@ fn man_command_prints_task_manual() {
 
     assert!(output.status.success());
     let stdout_lines = normalized_lines(&output.stdout);
-    assert!(stdout_lines
-        .iter()
-        .any(|line| line == "task \"<name>\" <hours> [cardId] @ <date>"));
+    assert!(
+        stdout_lines
+            .iter()
+            .any(|line| line == "task \"<name>\" <hours> [cardId] @ <date>")
+    );
 }
 
 #[test]

@@ -4,8 +4,8 @@ pub mod config;
 pub mod core;
 pub mod errors;
 pub mod extensions;
-pub mod prompter;
 pub mod logging;
+pub mod prompter;
 mod scheduler;
 pub mod ui;
 
