@@ -1,14 +1,14 @@
 use std::io::{self, Write};
 
+use crate::arg::arg_parse_strategy::CommandArgParser;
 use crate::arg::args::Arg;
 use crate::command::command_parser::CommandParser;
 use crate::command::commands::CommandDyn;
-use crate::core::context::AppContext;
-use crate::arg::arg_parse_strategy::CommandArgParser;
 use crate::command::manual::ManualCatalog;
+use crate::core::context::AppContext;
 use crate::errors::Result;
-use crate::prompter::models::{Flow, FlowCtrl};
 use crate::logging::{LogTarget, Logger};
+use crate::prompter::models::{Flow, FlowCtrl};
 use crate::ui::ansi::STYLE_RESET;
 use crate::ui::chrome::UiChrome;
 
@@ -112,12 +112,7 @@ impl<'a> MainFlow<'a> {
         (raw_command, raw_args)
     }
 
-    fn parse_args(
-        &self,
-        raw_command: &str,
-        raw_args: &[String],
-        line: &str,
-    ) -> Option<Vec<Arg>> {
+    fn parse_args(&self, raw_command: &str, raw_args: &[String], line: &str) -> Option<Vec<Arg>> {
         match self.arg_parser.parse(raw_command, raw_args) {
             Ok(args) => Some(args),
             Err(err) => {
@@ -130,11 +125,7 @@ impl<'a> MainFlow<'a> {
         }
     }
 
-    fn resolve_command<'b>(
-        &self,
-        raw_command: &str,
-        args: &'b [Arg],
-    ) -> Option<CommandDyn<'b>> {
+    fn resolve_command<'b>(&self, raw_command: &str, args: &'b [Arg]) -> Option<CommandDyn<'b>> {
         match self.command_parser.parse(raw_command, args) {
             Ok(cmd) => Some(cmd),
             Err(err) => {
@@ -164,8 +155,7 @@ impl<'a> MainFlow<'a> {
         if let Some(usage_error) = self.format_usage_error(raw_command, &err_text) {
             self.logger
                 .error(usage_error.console_msg, LogTarget::ConsoleOnly);
-            self.logger
-                .error(usage_error.file_msg, LogTarget::FileOnly);
+            self.logger.error(usage_error.file_msg, LogTarget::FileOnly);
             return;
         }
 
@@ -179,7 +169,10 @@ impl<'a> MainFlow<'a> {
         let (head, tail) = err_text.split_once("\nUsage:")?;
         let console_msg =
             format!("Command execution failed for '{raw_command}'. {head}\nUsage:{tail}");
-        let file_msg = format!("Command execution failed for '{raw_command}'. {}", head.trim());
+        let file_msg = format!(
+            "Command execution failed for '{raw_command}'. {}",
+            head.trim()
+        );
         Some(UsageErrorMessage {
             console_msg,
             file_msg,

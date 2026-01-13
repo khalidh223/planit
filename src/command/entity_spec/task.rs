@@ -127,7 +127,6 @@ impl ArgValidator for TaskArgValidator {
     }
 }
 
-
 pub struct TaskBuilder;
 impl EntityBuilder<Task> for TaskBuilder {
     type PatternId = TaskPat;

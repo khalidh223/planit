@@ -1,8 +1,8 @@
 use crate::core::cli::CliPaths;
 use crate::core::context::AppContext;
+use crate::logging::LogTarget;
 use crate::prompter::flows::main_flow::MainFlow;
 use crate::prompter::prompter::Prompter;
-use crate::logging::LogTarget;
 
 pub mod arg;
 pub mod command;
@@ -24,17 +24,14 @@ fn main() {
             std::process::exit(1);
         }
     };
-    let mut ctx = match AppContext::new_with_paths(
-        paths.config_path,
-        paths.schedules_dir,
-        paths.logs_dir,
-    ) {
-        Ok(ctx) => ctx,
-        Err(err) => {
-            eprintln!("{err}");
-            std::process::exit(1);
-        }
-    };
+    let mut ctx =
+        match AppContext::new_with_paths(paths.config_path, paths.schedules_dir, paths.logs_dir) {
+            Ok(ctx) => ctx,
+            Err(err) => {
+                eprintln!("{err}");
+                std::process::exit(1);
+            }
+        };
     let prompter = Prompter::new();
     let flow = MainFlow::new(&mut ctx);
 

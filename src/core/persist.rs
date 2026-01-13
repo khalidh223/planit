@@ -1,4 +1,7 @@
-use crate::arg::arg_emitter::{ArgEmitContext, ArgEmitter, CardArgEmitter, EventArgEmitter, NoRefEmitContext, SaveEmitContext, TaskArgEmitter};
+use crate::arg::arg_emitter::{
+    ArgEmitContext, ArgEmitter, CardArgEmitter, EventArgEmitter, NoRefEmitContext, SaveEmitContext,
+    TaskArgEmitter,
+};
 use crate::arg::arg_parser::ArgParser;
 use crate::arg::args::Arg;
 use crate::command::command_parser::CommandParser;
@@ -109,9 +112,7 @@ fn build_save_file(
     let events_tokens = events
         .values(Sort::IdAsc)
         .into_iter()
-        .map(|event| {
-            emit_tokens(&event_emitter, &event, &emit_context)
-        })
+        .map(|event| emit_tokens(&event_emitter, &event, &emit_context))
         .collect::<Result<Vec<TokenList>>>()?;
 
     let tasks_tokens = tasks
@@ -133,8 +134,7 @@ fn load_save_file(path: &Path) -> Result<SaveFile> {
 }
 
 fn args_to_tokens(args: &[Arg]) -> TokenList {
-    args
-        .iter()
+    args.iter()
         .flat_map(|arg| arg.to_tokens())
         .collect::<Vec<_>>()
 }

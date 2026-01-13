@@ -11,9 +11,9 @@ use crate::core::persist::{load_state, save_state};
 use crate::core::types::{EntityActionType, EntityType};
 use crate::errors::Error::Parse;
 use crate::errors::Result;
+use crate::logging::LogTarget;
 use crate::prompter::flows::config_edit::ConfigEditFlow;
 use crate::prompter::prompter::Prompter;
-use crate::logging::LogTarget;
 use crate::scheduler::ScheduleManager;
 use crate::ui::display_manager::DisplayManager;
 
@@ -363,7 +363,9 @@ impl<'a> ManCommand<'a> {
                     other
                 ))),
             },
-            _ => Err(Parse("Expected at most one topic. Usage: man [topic]".into())),
+            _ => Err(Parse(
+                "Expected at most one topic. Usage: man [topic]".into(),
+            )),
         }
     }
 }

@@ -1,5 +1,5 @@
-pub mod ascii;
 pub mod ansi;
+pub mod ascii;
 pub mod chrome;
 pub mod display_data;
 pub mod display_manager;

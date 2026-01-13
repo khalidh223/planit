@@ -142,8 +142,10 @@ fn config_edit_flow_handles_invalid_inputs_gracefully() {
     flow.render().unwrap();
     flow.handle_input("not-a-policy").unwrap();
     // capture state before dropping flow (which holds &mut ctx)
-    let stayed_in_ask_new =
-        matches!(flow.state(), crate::prompter::models::ConfigState::AskNewValue);
+    let stayed_in_ask_new = matches!(
+        flow.state(),
+        crate::prompter::models::ConfigState::AskNewValue
+    );
     drop(flow);
 
     // value should remain unchanged

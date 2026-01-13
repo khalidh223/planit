@@ -3,11 +3,11 @@ use crate::arg::arg_emitter::{
     ArgEmitter, CardArgEmitter, EventArgEmitter, NoRefEmitContext, SaveEmitContext, TaskArgEmitter,
 };
 use crate::arg::arg_parse_strategy::{ArgParseStrategy, CommandArgParser, ManArgParser};
+use crate::core::aliases::{IdLookup, TokenList};
 use crate::core::types::{
     Bool, BoolFormat, Date, DateFormat, DayOfWeek, EntityType, Flag, TimeFormat, TimeRange,
 };
 use crate::core::{models::Card, models::Event, models::Task, types::CardColor};
-use crate::core::aliases::{TokenList, IdLookup};
 use crate::errors::Error;
 use crate::extensions::enums::valid_csv;
 
@@ -439,7 +439,9 @@ fn task_arg_emitter_maps_card_and_orders_args() {
     );
     let mut card_map = IdLookup::new();
     card_map.insert(7, 2);
-    let ctx = SaveEmitContext { id_lookup: &card_map };
+    let ctx = SaveEmitContext {
+        id_lookup: &card_map,
+    };
 
     let args = emitter.with_entity(&task, &ctx).unwrap();
     assert_arg_strings(&args, &["\"work\"", "4", "+C2", "@", "2025-02-01"]);
@@ -481,7 +483,14 @@ fn event_arg_emitter_emits_days_when_present() {
     let args = emitter.with_entity(&event, &ctx).unwrap();
     assert_arg_strings(
         &args,
-        &["True", "\"party\"", "+C1", "@", "MON, WED", "8:00AM-10:00AM"],
+        &[
+            "True",
+            "\"party\"",
+            "+C1",
+            "@",
+            "MON, WED",
+            "8:00AM-10:00AM",
+        ],
     );
 }
 

@@ -1,8 +1,7 @@
 use crate::errors::{Error, Result};
 use crate::prompter::models::{Flow, FlowCtrl};
 use crate::ui::ansi::{
-    CURSOR_BLINKING_BLOCK, CURSOR_HOME, ENTER_ALT_SCREEN, EXIT_ALT_SCREEN,
-    HIDE_CURSOR, SHOW_CURSOR,
+    CURSOR_BLINKING_BLOCK, CURSOR_HOME, ENTER_ALT_SCREEN, EXIT_ALT_SCREEN, HIDE_CURSOR, SHOW_CURSOR,
 };
 use std::io::{self, BufRead, BufReader, Write};
 

@@ -46,12 +46,7 @@ pub trait ArgEmitter<E> {
         Ok(out)
     }
 
-    fn fill_args(
-        &self,
-        entity: &E,
-        ctx: &dyn ArgEmitContext,
-        out: &mut Vec<Arg>,
-    ) -> Result<()>;
+    fn fill_args(&self, entity: &E, ctx: &dyn ArgEmitContext, out: &mut Vec<Arg>) -> Result<()>;
 }
 
 pub struct CardArgEmitter;
@@ -61,12 +56,7 @@ impl CardArgEmitter {
     }
 }
 impl ArgEmitter<Card> for CardArgEmitter {
-    fn fill_args(
-        &self,
-        card: &Card,
-        _ctx: &dyn ArgEmitContext,
-        out: &mut Vec<Arg>,
-    ) -> Result<()> {
+    fn fill_args(&self, card: &Card, _ctx: &dyn ArgEmitContext, out: &mut Vec<Arg>) -> Result<()> {
         out.push(Arg::Name(card.name.clone()));
         out.push(Arg::CardColor(card.color));
         Ok(())
@@ -80,12 +70,7 @@ impl TaskArgEmitter {
     }
 }
 impl ArgEmitter<Task> for TaskArgEmitter {
-    fn fill_args(
-        &self,
-        task: &Task,
-        ctx: &dyn ArgEmitContext,
-        out: &mut Vec<Arg>,
-    ) -> Result<()> {
+    fn fill_args(&self, task: &Task, ctx: &dyn ArgEmitContext, out: &mut Vec<Arg>) -> Result<()> {
         out.push(Arg::Name(task.name.clone()));
         out.push(Arg::Int(task.hours.round() as i32));
         if let Some(card_id) = task.card_id {
@@ -105,12 +90,7 @@ impl EventArgEmitter {
     }
 }
 impl ArgEmitter<Event> for EventArgEmitter {
-    fn fill_args(
-        &self,
-        event: &Event,
-        ctx: &dyn ArgEmitContext,
-        out: &mut Vec<Arg>,
-    ) -> Result<()> {
+    fn fill_args(&self, event: &Event, ctx: &dyn ArgEmitContext, out: &mut Vec<Arg>) -> Result<()> {
         out.push(Arg::Bool(Bool(event.recurring)));
         out.push(Arg::Name(event.name.clone()));
         if let Some(card_id) = event.card_id {

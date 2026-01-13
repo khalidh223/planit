@@ -1,3 +1,4 @@
+pub mod aliases;
 pub mod cli;
 pub mod context;
 pub mod models;
@@ -6,5 +7,4 @@ pub mod repository;
 #[cfg(test)]
 mod tests;
 pub mod transaction;
-pub mod aliases;
 pub mod types;

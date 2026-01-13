@@ -110,7 +110,10 @@ fn main_fails_on_unknown_cli_arg() {
         .output()
         .expect("failed to run binary");
 
-    assert!(!output.status.success(), "expected failure on unknown cli arg");
+    assert!(
+        !output.status.success(),
+        "expected failure on unknown cli arg"
+    );
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(
         stderr.contains("Unknown argument"),
