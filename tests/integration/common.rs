@@ -83,6 +83,16 @@ pub fn run_with_input(dir: &PathBuf, input: &str) -> Output {
     child.wait_with_output().unwrap()
 }
 
+pub fn run_without_input(dir: &PathBuf) -> Output {
+    Command::new(binary_path())
+        .current_dir(dir)
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::piped())
+        .output()
+        .expect("failed to run binary")
+}
+
 fn strip_ansi_and_control(s: &str) -> String {
     let mut out = String::with_capacity(s.len());
     let mut bytes = s.bytes().peekable();
