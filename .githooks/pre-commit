@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+cargo fmt -- --check
+cargo test
+cargo llvm-cov --fail-under-lines 80
