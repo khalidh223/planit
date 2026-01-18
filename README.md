@@ -1,5 +1,7 @@
 ![logo.png](images/logo.png)
 
+[![CI](https://github.com/khalidh223/planit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/khalidh223/planit/actions/workflows/ci.yml)
+
 Planit is a robust, dynamic scheduling CLI tool for generating timetabled daily/weekly schedules. 
 
 ![intro.png](images/intro.png)
